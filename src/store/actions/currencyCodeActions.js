@@ -51,28 +51,27 @@ export async function getConvertRate(dispatch, countryCodeFrom, countryCodeTo) {
 
 export async function getAllConvertRates(dispatch, currencyCodeFrom) {
   try {
-    const base = currencyCodeFrom === "EUR" ? "" : `&base=${currencyCodeFrom}`;
     const result = await Axios.get(
-      `http://data.fixer.io/api/latest?access_key=${ALL_CURRENCIES_LIST_API_KEY}${base}`
+      `https://currencyapi.net/api/v1/rates?key=${ALL_CURRENCIES_LIST_API_KEY}&base=${currencyCodeFrom}`
     );
-    if (result.data.error) {
+    dispatch({
+      type: GET_ALL_RATES,
+      payload: {
+        base: result.data.base,
+        rates: result.data.rates,
+      },
+    });
+  } catch (error) {
+    if (error.response.data.error && error.response.data.error.code === 408) {
       dispatch({
         type: GET_ALL_RATES_ERROR,
-        payload: result.data.error,
+        payload: error.response.data.error,
       });
     } else {
       dispatch({
-        type: GET_ALL_RATES,
-        payload: {
-          base: result.data.base,
-          rates: result.data.rates,
-        },
+        type: GET_ALL_RATES_UNKNOWN_ERROR,
+        payload: error,
       });
     }
-  } catch (error) {
-    dispatch({
-      type: GET_ALL_RATES_UNKNOWN_ERROR,
-      payload: error,
-    });
   }
 }

@@ -72,7 +72,8 @@ export function codeReducer(state, action) {
         ...state,
         allCountriesRates: {},
         baseCurrency: "",
-        errorMessage: `Current API works only with EUR, otherwise please upgrade in https://fixer.io/product`,
+        errorMessage:
+          "Current API works only with USD, otherwise please upgrade in https://currencyapi.net/#pricing-sec",
         isErrorDialogOpen: true,
       };
       break;
