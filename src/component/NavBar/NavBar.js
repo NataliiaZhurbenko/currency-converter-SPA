@@ -6,22 +6,22 @@ import AllCurrenciesList from "../AllCurrenciesList/AllCurrenciesList";
 import { useStyles, StyledTab, StyledTabs } from "./NavBar.style";
 
 const ROOT_PATH = process.env.REACT_APP_ROOT_PATH;
-const CURRENCY_CONVERTER_PATH = `${ROOT_PATH}/`;
-const ALL_CURRENCIES_LIST_PATH = `${ROOT_PATH}/all-currencies-list`;
+const CURRENCY_CONVERTER_HASH = "";
+const ALL_CURRENCIES_LIST_HASH = "#all-currencies-list";
 
 export default function NavBar() {
   const [tabId, setTabId] = useState(0);
 
   const location = useLocation();
   useEffect(() => {
-    if (location.pathname === CURRENCY_CONVERTER_PATH) {
+    if (location.hash === CURRENCY_CONVERTER_HASH) {
       setTabId(0);
     } else {
       setTabId(1);
     }
   }, [location]);
 
-  const handleChange = (event, nextTabId) => {
+  const handleTabChange = (event, nextTabId) => {
     setTabId(nextTabId);
   };
   const classes = useStyles();
@@ -29,33 +29,35 @@ export default function NavBar() {
   return (
     <div className={classes.root}>
       <div className={classes.navbar}>
-        <StyledTabs value={tabId} onChange={handleChange}>
+        <StyledTabs value={tabId} onChange={handleTabChange}>
           <StyledTab
             selected
             label="Currency Converter"
             component={Link}
-            to={CURRENCY_CONVERTER_PATH}
+            to={`${ROOT_PATH}${CURRENCY_CONVERTER_HASH}`}
           />
           <StyledTab
             label="All Currencies List"
             component={Link}
-            to={ALL_CURRENCIES_LIST_PATH}
+            to={`${ROOT_PATH}${ALL_CURRENCIES_LIST_HASH}`}
           />
         </StyledTabs>
         <Typography className={classes.padding} />
       </div>
-      <Switch>
-        <Route
-          exact
-          path={CURRENCY_CONVERTER_PATH}
-          component={CurrencyConverter}
-        />
-        <Route
-          exact
-          path={ALL_CURRENCIES_LIST_PATH}
-          component={AllCurrenciesList}
-        />
-      </Switch>
+      <Route
+        exact
+        path={ROOT_PATH}
+        component={({ location }) =>
+          location.hash === CURRENCY_CONVERTER_HASH && <CurrencyConverter />
+        }
+      />
+      <Route
+        exact
+        path={ROOT_PATH}
+        component={({ location }) =>
+          location.hash === ALL_CURRENCIES_LIST_HASH && <AllCurrenciesList />
+        }
+      />
     </div>
   );
 }
