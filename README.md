@@ -1,7 +1,15 @@
 
+# Getting Started
+
 In the project directory, you can run:
 
-### `npm start`
+`cp .env.example .env`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Add API keys to the `.env` file. And then:
+
+`npm install`
+`npm start`
+
+Open the project [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+Demo: http://NataliiaZhurbenko.github.io/currency-converter-spa
