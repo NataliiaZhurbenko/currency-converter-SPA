@@ -12,4 +12,4 @@ Add API keys to the `.env` file. And then:
 
 Open the project [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Demo: http://NataliiaZhurbenko.github.io/currency-converter-spa
+Demo: https://NataliiaZhurbenko.github.io/currency-converter-spa/
