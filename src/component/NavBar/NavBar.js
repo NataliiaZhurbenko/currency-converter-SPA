@@ -5,12 +5,16 @@ import CurrencyConverter from "../CurrencyConverter/CurrencyConverter";
 import AllCurrenciesList from "../AllCurrenciesList/AllCurrenciesList";
 import { useStyles, StyledTab, StyledTabs } from "./NavBar.style";
 
+const ROOT_PATH = process.env.REACT_APP_ROOT_PATH;
+const CURRENCY_CONVERTER_PATH = `${ROOT_PATH}/`;
+const ALL_CURRENCIES_LIST_PATH = `${ROOT_PATH}/all-currencies-list`;
+
 export default function NavBar() {
   const [tabId, setTabId] = useState(0);
 
   const location = useLocation();
   useEffect(() => {
-    if (location.pathname === "/") {
+    if (location.pathname === CURRENCY_CONVERTER_PATH) {
       setTabId(0);
     } else {
       setTabId(1);
@@ -30,21 +34,25 @@ export default function NavBar() {
             selected
             label="Currency Converter"
             component={Link}
-            to="/"
+            to={CURRENCY_CONVERTER_PATH}
           />
           <StyledTab
             label="All Currencies List"
             component={Link}
-            to="/all-currencies-list"
+            to={ALL_CURRENCIES_LIST_PATH}
           />
         </StyledTabs>
         <Typography className={classes.padding} />
       </div>
       <Switch>
-        <Route exact path="/" component={CurrencyConverter} />
         <Route
           exact
-          path="/all-currencies-list"
+          path={CURRENCY_CONVERTER_PATH}
+          component={CurrencyConverter}
+        />
+        <Route
+          exact
+          path={ALL_CURRENCIES_LIST_PATH}
           component={AllCurrenciesList}
         />
       </Switch>
